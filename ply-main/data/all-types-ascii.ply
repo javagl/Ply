@@ -1,0 +1,31 @@
+ply
+format ascii 1.0
+element example_element_integers_8 1
+property uchar example_uchar
+property uint8 example_uint8
+property char example_char
+property int8 example_int8
+element example_element_integers_16 1
+property ushort example_ushort
+property uint16 example_uint16
+property short example_short
+property int16 example_int16
+element example_element_integers_32 1
+property uint example_uint
+property uint32 example_uint32
+property int example_int
+property int32 example_int32
+element example_element_floats 1
+property float example_float
+property float example_float32
+property double example_double
+property double example_float64
+element example_element_lists 1
+property list uchar int example_list_uchar_int
+property list int float example_list_int_float
+end_header
+255 255 -128 -128
+65535 65535 -32768 -32768
+4294967295 4294967295 -2147483648 2147483648
+1.32 1.32 1.64 1.64
+3 123 456 789 4 1.23 2.34 3.45 4.56
