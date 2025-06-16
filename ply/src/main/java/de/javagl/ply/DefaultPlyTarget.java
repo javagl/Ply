@@ -27,7 +27,6 @@
 package de.javagl.ply;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,19 +73,8 @@ class DefaultPlyTarget implements PlyTarget
         for (int i = 0; i < elementDescriptors.size(); i++)
         {
             ElementDescriptor elementDescriptor = elementDescriptors.get(i);
-
             Map<String, Integer> propertyIndices =
-                new LinkedHashMap<String, Integer>();
-
-            List<PropertyDescriptor> propertyDescriptors =
-                elementDescriptor.getPropertyDescriptors();
-            for (int j = 0; j < propertyDescriptors.size(); j++)
-            {
-                PropertyDescriptor propertyDescriptor =
-                    propertyDescriptors.get(j);
-                String name = propertyDescriptor.getName();
-                propertyIndices.put(name, j);
-            }
+                ElementDescriptors.computePropertyIndices(elementDescriptor);
             propertyIndexMaps.add(propertyIndices);
         }
 
