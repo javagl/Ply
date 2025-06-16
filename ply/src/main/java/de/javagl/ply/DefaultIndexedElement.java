@@ -32,9 +32,12 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
- * Default implementation of an {@link Element}
+ * Default implementation of an {@link Element}.
+ * 
+ * This implementation is used internally and allows indexed access to the
+ * property values.
  */
-class DefaultElement implements IndexedElement, MutableElement
+class DefaultIndexedElement implements MutableElement
 {
     /**
      * The mapping from property names to indices
@@ -51,7 +54,7 @@ class DefaultElement implements IndexedElement, MutableElement
      * 
      * @param propertyIndices The mapping from property names to indices
      */
-    DefaultElement(Map<String, Integer> propertyIndices)
+    DefaultIndexedElement(Map<String, Integer> propertyIndices)
     {
         this.propertyIndices = Objects.requireNonNull(propertyIndices,
             "The propertyIndices may not be null");
@@ -168,62 +171,112 @@ class DefaultElement implements IndexedElement, MutableElement
         return getDoubleListProperty(index);
     }
 
-    @Override
-    public Byte getCharProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private Byte getCharProperty(int index)
     {
         return (Byte) properties[index];
     }
 
-    @Override
-    public Short getShortProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private Short getShortProperty(int index)
     {
         return (Short) properties[index];
     }
 
-    @Override
-    public Integer getIntProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private Integer getIntProperty(int index)
     {
         return (Integer) properties[index];
     }
 
-    @Override
-    public Float getFloatProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private Float getFloatProperty(int index)
     {
         return (Float) properties[index];
     }
 
-    @Override
-    public Double getDoubleProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private Double getDoubleProperty(int index)
     {
         return (Double) properties[index];
     }
 
-    @Override
-    public byte[] getCharListProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private byte[] getCharListProperty(int index)
     {
         return (byte[]) properties[index];
     }
 
-    @Override
-    public short[] getShortListProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private short[] getShortListProperty(int index)
     {
         return (short[]) properties[index];
     }
 
-    @Override
-    public int[] getIntListProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private int[] getIntListProperty(int index)
     {
         return (int[]) properties[index];
     }
 
-    @Override
-    public float[] getFloatListProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private float[] getFloatListProperty(int index)
     {
         return (float[]) properties[index];
     }
 
-    @Override
-    public double[] getDoubleListProperty(int index)
+    /**
+     * Returns the specified property
+     * 
+     * @param index The index
+     * @return The property
+     */
+    private double[] getDoubleListProperty(int index)
     {
         return (double[]) properties[index];
     }

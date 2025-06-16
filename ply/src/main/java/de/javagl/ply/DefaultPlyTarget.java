@@ -42,9 +42,9 @@ class DefaultPlyTarget implements PlyTarget
     private DefaultPly currentPly;
 
     /**
-     * The current {@link DefaultElement}
+     * The current {@link DefaultIndexedElement}
      */
-    private DefaultElement currentElement;
+    private DefaultIndexedElement currentElement;
 
     /**
      * A list containing one map for each element type, mapping the property
@@ -105,7 +105,7 @@ class DefaultPlyTarget implements PlyTarget
     {
         Map<String, Integer> propertyIndices =
             propertyIndexMaps.get(elementTypeIndex);
-        this.currentElement = new DefaultElement(propertyIndices);
+        this.currentElement = new DefaultIndexedElement(propertyIndices);
     }
 
     @Override
