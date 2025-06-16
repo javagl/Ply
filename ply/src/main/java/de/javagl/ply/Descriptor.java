@@ -35,10 +35,17 @@ import java.util.List;
 public interface Descriptor
 {
     /**
-     * Returns an unmodifiable list containing the {@link ElementDescriptor}s
-     * for the elements of the PLY file
+     * Returns an unmodifiable list of comments that appeared in the PLY file
      * 
-     * @return The {@link ElementDescriptor}s
+     * @return The comments
+     */
+    List<String> getComments();
+
+    /**
+     * Returns an unmodifiable list containing the {@link ElementDescriptor}
+     * objects for the elements of the PLY file
+     * 
+     * @return The {@link ElementDescriptor} objects
      */
     List<ElementDescriptor> getElementDescriptors();
 }

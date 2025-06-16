@@ -112,8 +112,8 @@ class DefaultPlyReader implements PlyReader
             }
             if (line.startsWith("comment"))
             {
-                // Ignore
-                continue;
+                String comment = line.substring(8);
+                descriptor.addComment(comment);
             }
 
             // Handle each line, until the "end_header" line is found

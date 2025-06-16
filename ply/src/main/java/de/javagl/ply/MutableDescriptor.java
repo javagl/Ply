@@ -32,6 +32,13 @@ package de.javagl.ply;
 public interface MutableDescriptor extends Descriptor
 {
     /**
+     * Add the given comment to be part of the PLY file
+     * 
+     * @param comment The comment
+     */
+    void addComment(String comment);
+
+    /**
      * Add the given {@link ElementDescriptor} to this descriptor
      * 
      * @param elementDescriptor The {@link ElementDescriptor} to add

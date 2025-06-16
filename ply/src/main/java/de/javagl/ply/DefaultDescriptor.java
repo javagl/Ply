@@ -30,6 +30,7 @@ package de.javagl.ply;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Default implementation of a {@link Descriptor}
@@ -37,11 +38,37 @@ import java.util.List;
 class DefaultDescriptor implements MutableDescriptor
 {
     /**
+     * The comments that appeared in the PLY file
+     */
+    private final List<String> comments;
+
+    /**
      * The {@link ElementDescriptor} objects, one for each element defined in
      * the PLY file
      */
-    private final List<ElementDescriptor> elementDescriptors =
-        new ArrayList<ElementDescriptor>();
+    private final List<ElementDescriptor> elementDescriptors;
+
+    /**
+     * Default constructor
+     */
+    DefaultDescriptor()
+    {
+        this.comments = new ArrayList<String>();
+        this.elementDescriptors = new ArrayList<ElementDescriptor>();
+    }
+
+    @Override
+    public void addComment(String comment)
+    {
+        Objects.requireNonNull(comment, "The comment may not be null");
+        comments.add(comment);
+    }
+
+    @Override
+    public List<String> getComments()
+    {
+        return Collections.unmodifiableList(comments);
+    }
 
     @Override
     public void addElementDescriptor(ElementDescriptor elementDescriptor)

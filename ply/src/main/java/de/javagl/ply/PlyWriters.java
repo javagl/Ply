@@ -118,10 +118,15 @@ public class PlyWriters
         Writer writer = new OutputStreamWriter(outputStream);
         writer.write("ply" + "\n");
         writer.write("format " + format + " 1.0" + "\n");
-        writer.write("comment Generated with Ply from javagl.de" + "\n");
+
+        Descriptor descriptor = plySource.getDescriptor();
+        List<String> comments = descriptor.getComments();
+        for (String comment : comments)
+        {
+            writer.write("comment " + comment + "\n");
+        }
 
         List<Integer> elementCounts = computeElementCounts(plySource);
-        Descriptor descriptor = plySource.getDescriptor();
         List<ElementDescriptor> elementDescriptors =
             descriptor.getElementDescriptors();
         for (int t = 0; t < elementDescriptors.size(); t++)
