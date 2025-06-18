@@ -13,15 +13,13 @@ import java.util.Arrays;
 
 import de.javagl.ply.AbstractPlyTarget;
 import de.javagl.ply.Descriptor;
-import de.javagl.ply.ElementDescriptor;
 import de.javagl.ply.PlyReader;
 import de.javagl.ply.PlyReaders;
-import de.javagl.ply.PropertyDescriptor;
 
 /**
  * An example showing how to use the Ply library to load a PLY file and pass the
- * read data to a custom target that collects the data of specific properties
- * in arrays.
+ * read data to a custom target that collects the data of specific properties in
+ * arrays.
  */
 public class Ply_03_ReadArrays
 {
@@ -55,8 +53,7 @@ public class Ply_03_ReadArrays
             float vertexCoordinatesZ[];
 
             @Override
-            public void startElementList(int elementTypeIndex,
-                ElementDescriptor elementDescriptor, int elementCount)
+            public void startElementList(int elementTypeIndex, int elementCount)
             {
                 // The element type with index 0 is "vertex"
                 if (elementTypeIndex == 0)
@@ -69,9 +66,7 @@ public class Ply_03_ReadArrays
 
             @Override
             public void handleFloatProperty(int elementTypeIndex,
-                ElementDescriptor elementDescriptor, int elementIndex,
-                PropertyDescriptor propertyDescriptor, int propertyIndex,
-                float value)
+                int elementIndex, int propertyIndex, float value)
             {
                 // The element type with index 0 is "vertex"
                 if (elementTypeIndex == 0)

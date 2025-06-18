@@ -34,16 +34,16 @@ public class Ply_01_Read
         // Create an input stream with the PLY data
         InputStream inputStream = new BufferedInputStream(
             new FileInputStream("./data/cube-ascii.ply"));
-        
+
         // Create a PLY reader
         PlyReader p = PlyReaders.create();
-        
+
         // Read the PLY data
         PlySource plySource = p.read(inputStream);
-        
+
         // Print the data to the console
         print(plySource);
-        
+
         // Access one specific element and one specific
         // property of the PLY data:
         List<Element> vertices = plySource.getElementList("vertex");
@@ -51,7 +51,7 @@ public class Ply_01_Read
         float z = vertex.getFloatProperty("z");
         System.out.println("Value: " + z);
     }
-    
+
     /**
      * Print information about the given PLY data to the console
      * 

@@ -71,11 +71,13 @@ public class Ply_05_Write
         // Create elements of the second type, 'face', and
         // add them to the PLY source
         MutableElement f0 = Elements.create();
-        f0.setIntListProperty("vertex_index", new int[] { 0, 1, 2 });
+        f0.setIntListProperty("vertex_index", new int[]
+        { 0, 1, 2 });
         p.addElement("face", f0);
 
         MutableElement f1 = Elements.create();
-        f1.setIntListProperty("vertex_index", new int[] { 2, 3, 0 });
+        f1.setIntListProperty("vertex_index", new int[]
+        { 2, 3, 0 });
         p.addElement("face", f1);
 
         // Write the PLY data, in 'ascii' format, into an

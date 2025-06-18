@@ -14,10 +14,8 @@ import java.util.List;
 
 import de.javagl.ply.AbstractPlyTarget;
 import de.javagl.ply.Descriptor;
-import de.javagl.ply.ElementDescriptor;
 import de.javagl.ply.PlyReader;
 import de.javagl.ply.PlyReaders;
-import de.javagl.ply.PropertyDescriptor;
 
 /**
  * An example showing how to use the Ply library to load a PLY file and pass the
@@ -72,8 +70,7 @@ public class Ply_04_ReadCustomObjects
             Vertex currentVertex;
 
             @Override
-            public void startElement(int elementTypeIndex,
-                ElementDescriptor elementDescriptor, int elementIndex)
+            public void startElement(int elementTypeIndex, int elementIndex)
 
             {
                 // The element type with index 0 is "vertex"
@@ -87,9 +84,7 @@ public class Ply_04_ReadCustomObjects
 
             @Override
             public void handleFloatProperty(int elementTypeIndex,
-                ElementDescriptor elementDescriptor, int elementIndex,
-                PropertyDescriptor propertyDescriptor, int propertyIndex,
-                float value)
+                int elementIndex, int propertyIndex, float value)
             {
                 // The element type with index 0 is "vertex"
                 if (elementTypeIndex == 0)
@@ -112,8 +107,7 @@ public class Ply_04_ReadCustomObjects
             }
 
             @Override
-            public void endElement(int elementTypeIndex,
-                ElementDescriptor elementDescriptor, int elementIndex)
+            public void endElement(int elementTypeIndex, int elementIndex)
             {
                 // The element type with index 0 is "vertex"
                 if (elementTypeIndex == 0)
