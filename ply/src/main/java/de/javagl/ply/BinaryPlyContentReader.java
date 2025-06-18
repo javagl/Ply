@@ -110,8 +110,6 @@ class BinaryPlyContentReader
         for (int t = 0; t < elementDescriptors.size(); t++)
         {
             ElementDescriptor elementDescriptor = elementDescriptors.get(t);
-            List<PropertyDescriptor> propertyDescriptors =
-                elementDescriptor.getPropertyDescriptors();
 
             List<BinaryPropertyReader> propertyReaders =
                 createPropertyReaders(elementDescriptor);
@@ -119,25 +117,23 @@ class BinaryPlyContentReader
                 createSizeReaders(elementDescriptor);
 
             int count = counts.get(t);
-            plyTarget.startElementList(t, elementDescriptor, count);
+            plyTarget.startElementList(t, count);
             for (int e = 0; e < count; e++)
             {
-                plyTarget.startElement(t, elementDescriptor, e);
+                plyTarget.startElement(t, e);
 
-                for (int p = 0; p < propertyDescriptors.size(); p++)
+                for (int p = 0; p < propertyReaders.size(); p++)
                 {
-                    PropertyDescriptor propertyDescriptor =
-                        propertyDescriptors.get(p);
                     BinaryPropertyReader propertyReader =
                         propertyReaders.get(p);
                     Function<InputStream, Number> sizeReader =
                         sizeReaders.get(p);
-                    propertyReader.read(inputStream, t, elementDescriptor, e,
-                        propertyDescriptor, p, sizeReader, plyTarget);
+                    propertyReader.read(inputStream, t, e, p, sizeReader,
+                        plyTarget);
                 }
-                plyTarget.endElement(t, elementDescriptor, e);
+                plyTarget.endElement(t, e);
             }
-            plyTarget.endElementList(t, elementDescriptor);
+            plyTarget.endElementList(t);
         }
     }
 
@@ -393,22 +389,19 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readChar(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Object sizeReader, PlyTarget plyTarget) throws IOException
+        int elementIndex, int propertyIndex, Object sizeReader,
+        PlyTarget plyTarget) throws IOException
     {
         byte value = readByte(inputStream);
-        plyTarget.handleCharProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleCharProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -418,22 +411,19 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readShort(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Object sizeReader, PlyTarget plyTarget) throws IOException
+        int elementIndex, int propertyIndex, Object sizeReader,
+        PlyTarget plyTarget) throws IOException
     {
         short value = readShort(inputStream);
-        plyTarget.handleShortProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleShortProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -443,22 +433,19 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readInt(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Object sizeReader, PlyTarget plyTarget) throws IOException
+        int elementIndex, int propertyIndex, Object sizeReader,
+        PlyTarget plyTarget) throws IOException
     {
         int value = readInt(inputStream);
-        plyTarget.handleIntProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleIntProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -468,22 +455,19 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readFloat(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Object sizeReader, PlyTarget plyTarget) throws IOException
+        int elementIndex, int propertyIndex, Object sizeReader,
+        PlyTarget plyTarget) throws IOException
     {
         float value = readFloat(inputStream);
-        plyTarget.handleFloatProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleFloatProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -493,22 +477,19 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readDouble(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Object sizeReader, PlyTarget plyTarget) throws IOException
+        int elementIndex, int propertyIndex, Object sizeReader,
+        PlyTarget plyTarget) throws IOException
     {
         double value = readDouble(inputStream);
-        plyTarget.handleDoubleProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleDoubleProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -518,17 +499,14 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readCharList(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
+        int elementIndex, int propertyIndex,
         Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
         throws IOException
     {
@@ -539,8 +517,8 @@ class BinaryPlyContentReader
         {
             value[i] = readByte(inputStream);
         }
-        plyTarget.handleCharListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleCharListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -550,17 +528,14 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readShortList(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
+        int elementIndex, int propertyIndex,
         Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
         throws IOException
     {
@@ -571,8 +546,8 @@ class BinaryPlyContentReader
         {
             value[i] = readShort(inputStream);
         }
-        plyTarget.handleShortListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleShortListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -582,17 +557,14 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readIntList(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
+        int elementIndex, int propertyIndex,
         Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
         throws IOException
     {
@@ -603,8 +575,8 @@ class BinaryPlyContentReader
         {
             value[i] = readInt(inputStream);
         }
-        plyTarget.handleIntListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleIntListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -614,17 +586,14 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readFloatList(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
+        int elementIndex, int propertyIndex,
         Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
         throws IOException
     {
@@ -635,8 +604,8 @@ class BinaryPlyContentReader
         {
             value[i] = readFloat(inputStream);
         }
-        plyTarget.handleFloatListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleFloatListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
     /**
@@ -646,17 +615,14 @@ class BinaryPlyContentReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
     private void readDoubleList(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
+        int elementIndex, int propertyIndex,
         Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
         throws IOException
     {
@@ -667,8 +633,8 @@ class BinaryPlyContentReader
         {
             value[i] = readDouble(inputStream);
         }
-        plyTarget.handleDoubleListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleDoubleListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
     }
 
 }

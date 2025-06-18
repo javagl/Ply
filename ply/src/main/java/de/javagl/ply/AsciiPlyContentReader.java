@@ -94,14 +94,12 @@ class AsciiPlyContentReader
         for (int t = 0; t < elementDescriptors.size(); t++)
         {
             ElementDescriptor elementDescriptor = elementDescriptors.get(t);
-            List<PropertyDescriptor> propertyDescriptors =
-                elementDescriptor.getPropertyDescriptors();
 
             List<AsciiPropertyReader> propertyReaders =
                 createAsciiPropertyReaders(elementDescriptor);
 
             int count = counts.get(t);
-            plyTarget.startElementList(t, elementDescriptor, count);
+            plyTarget.startElementList(t, count);
             int elementIndex = 0;
             while (true)
             {
@@ -118,29 +116,26 @@ class AsciiPlyContentReader
                     continue;
                 }
 
-                plyTarget.startElement(t, elementDescriptor, elementIndex);
+                plyTarget.startElement(t, elementIndex);
 
                 List<String> tokens = Arrays.asList(line.split("\\s+"));
                 int currentTokenIndex = 0;
-                for (int p = 0; p < propertyDescriptors.size(); p++)
+                for (int p = 0; p < propertyReaders.size(); p++)
                 {
-                    PropertyDescriptor propertyDescriptor =
-                        propertyDescriptors.get(p);
                     AsciiPropertyReader propertyReader = propertyReaders.get(p);
                     int readTokens = propertyReader.read(tokens,
-                        currentTokenIndex, t, elementDescriptor, elementIndex,
-                        propertyDescriptor, p, plyTarget);
+                        currentTokenIndex, t, elementIndex, p, plyTarget);
                     currentTokenIndex += readTokens;
                 }
 
-                plyTarget.endElement(t, elementDescriptor, elementIndex);
+                plyTarget.endElement(t, elementIndex);
                 elementIndex++;
                 if (elementIndex == count)
                 {
                     break;
                 }
             }
-            plyTarget.endElementList(t, elementDescriptor);
+            plyTarget.endElementList(t);
         }
     }
 
@@ -239,18 +234,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readChar(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         byte value;
         try
@@ -261,8 +253,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleCharProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleCharProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return 1;
     }
 
@@ -274,18 +266,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readShort(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         short value;
         try
@@ -296,8 +285,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleShortProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleShortProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return 1;
     }
 
@@ -309,18 +298,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readInt(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int value;
         try
@@ -331,8 +317,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleIntProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleIntProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return 1;
     }
 
@@ -344,18 +330,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readFloat(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         float value;
         try
@@ -366,8 +349,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleFloatProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleFloatProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return 1;
     }
 
@@ -379,18 +362,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readDouble(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         double value;
         try
@@ -401,8 +381,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleDoubleProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleDoubleProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return 1;
     }
 
@@ -414,18 +394,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readCharList(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int numElements;
         byte value[];
@@ -444,8 +421,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleCharListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleCharListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return numElements + 1;
     }
 
@@ -457,18 +434,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readShortList(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int numElements;
         short value[];
@@ -487,8 +461,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleShortListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleShortListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return numElements + 1;
     }
 
@@ -500,18 +474,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readIntList(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int numElements;
         int value[];
@@ -530,8 +501,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleIntListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleIntListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return numElements + 1;
     }
 
@@ -543,18 +514,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readFloatList(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int numElements;
         float value[];
@@ -573,8 +541,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleFloatListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleFloatListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return numElements + 1;
     }
 
@@ -586,18 +554,15 @@ class AsciiPlyContentReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     private static int readDoubleList(List<String> tokens, int tokenIndex,
-        int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex, PropertyDescriptor propertyDescriptor,
-        int propertyIndex, PlyTarget plyTarget) throws IOException
+        int elementTypeIndex, int elementIndex, int propertyIndex,
+        PlyTarget plyTarget) throws IOException
     {
         int numElements;
         double value[];
@@ -616,8 +581,8 @@ class AsciiPlyContentReader
         {
             throw new IOException(e);
         }
-        plyTarget.handleDoubleListProperty(elementTypeIndex, elementDescriptor,
-            elementIndex, propertyDescriptor, propertyIndex, value);
+        plyTarget.handleDoubleListProperty(elementTypeIndex, elementIndex,
+            propertyIndex, value);
         return numElements + 1;
     }
 

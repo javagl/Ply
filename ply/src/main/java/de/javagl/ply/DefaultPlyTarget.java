@@ -81,15 +81,13 @@ class DefaultPlyTarget implements PlyTarget
     }
 
     @Override
-    public void startElementList(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementCount)
+    public void startElementList(int elementTypeIndex, int elementCount)
     {
         // Nothing to do here
     }
 
     @Override
-    public void startElement(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex)
+    public void startElement(int elementTypeIndex, int elementIndex)
     {
         Map<String, Integer> propertyIndices =
             propertyIndexMaps.get(elementTypeIndex);
@@ -97,97 +95,89 @@ class DefaultPlyTarget implements PlyTarget
     }
 
     @Override
-    public void handleCharProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, byte value)
+    public void handleCharProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, byte value)
     {
         this.currentElement.setCharProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleShortProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, short value)
+    public void handleShortProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, short value)
     {
         this.currentElement.setShortProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleIntProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, int value)
+    public void handleIntProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, int value)
     {
         this.currentElement.setIntProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleFloatProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, float value)
+    public void handleFloatProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, float value)
     {
         this.currentElement.setFloatProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleDoubleProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, double value)
+    public void handleDoubleProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, double value)
     {
         this.currentElement.setDoubleProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleCharListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, byte[] value)
+    public void handleCharListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, byte[] value)
     {
         this.currentElement.setCharListProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleShortListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, short[] value)
+    public void handleShortListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, short[] value)
     {
         this.currentElement.setShortListProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleIntListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, int[] value)
+    public void handleIntListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, int[] value)
     {
         this.currentElement.setIntListProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleFloatListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, float[] value)
+    public void handleFloatListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, float[] value)
     {
         this.currentElement.setFloatListProperty(propertyIndex, value);
     }
 
     @Override
-    public void handleDoubleListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        double[] value)
+    public void handleDoubleListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, double[] value)
     {
         this.currentElement.setDoubleListProperty(propertyIndex, value);
     }
 
     @Override
-    public void endElement(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex)
+    public void endElement(int elementTypeIndex, int elementIndex)
     {
+        Descriptor descriptor = currentPly.getDescriptor();
+        List<ElementDescriptor> elementDescriptors =
+            descriptor.getElementDescriptors();
+        ElementDescriptor elementDescriptor =
+            elementDescriptors.get(elementTypeIndex);
         currentPly.addElement(elementDescriptor.getName(), currentElement);
         currentElement = null;
     }
 
     @Override
-    public void endElementList(int elementTypeIndex,
-        ElementDescriptor elementDescriptor)
+    public void endElementList(int elementTypeIndex)
     {
         // Nothing to do here
     }

@@ -49,17 +49,15 @@ public interface PlyTarget
      * It will be followed by calls that reflect a sequence of elements. Each
      * element will be represented by calls
      * <ul>
-     * <li>{@link #startElement(int, ElementDescriptor, int)}</li>
+     * <li>{@link #startElement(int, int)}</li>
      * <li><code>handle...Property</code> for all the element properties</li>
-     * <li>{@link #endElement(int, ElementDescriptor, int)}</li>
+     * <li>{@link #endElement(int, int)}</li>
      * </ul>
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementCount The number of elements that will follow
      */
-    void startElementList(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementCount);
+    void startElementList(int elementTypeIndex, int elementCount);
 
     /**
      * Will be called to indicate the start of the specified element.
@@ -68,174 +66,135 @@ public interface PlyTarget
      * <code>handle...Property</code> for all the element properties.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
      */
-    void startElement(int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex);
+    void startElement(int elementTypeIndex, int elementIndex);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleCharProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, byte value);
+    void handleCharProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, byte value);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleShortProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, short value);
+    void handleShortProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, short value);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleIntProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, int value);
+    void handleIntProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, int value);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleFloatProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, float value);
+    void handleFloatProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, float value);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleDoubleProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, double value);
+    void handleDoubleProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, double value);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleCharListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, byte value[]);
+    void handleCharListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, byte value[]);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleShortListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        short value[]);
+    void handleShortListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, short value[]);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleIntListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex, int value[]);
+    void handleIntListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, int value[]);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleFloatListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        float value[]);
+    void handleFloatListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, float value[]);
 
     /**
      * Will be called to handle the specified property of the specified element.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The index of the property
      * @param value The value of the property
      */
-    void handleDoubleListProperty(int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        double value[]);
+    void handleDoubleListProperty(int elementTypeIndex, int elementIndex,
+        int propertyIndex, double value[]);
 
     /**
      * Will be called to indicate that the specified element was finished, and
      * all <code>handle...Property</code> calls for that element have been made.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The index of the element
      */
-    void endElement(int elementTypeIndex, ElementDescriptor elementDescriptor,
-        int elementIndex);
+    void endElement(int elementTypeIndex, int elementIndex);
 
     /**
      * Will be called to indicate that the sequence of calls to handle the
      * specified sequence of elements is finished.
      * 
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      */
-    void endElementList(int elementTypeIndex,
-        ElementDescriptor elementDescriptor);
+    void endElementList(int elementTypeIndex);
 
 }

@@ -45,16 +45,13 @@ interface AsciiPropertyReader
      * @param tokens The list of tokens
      * @param tokenIndex The token index where to start reading
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param plyTarget The {@link PlyTarget}
      * @return How many tokens have been processed
      * @throws IOException If an IO error occurs
      */
     int read(List<String> tokens, int tokenIndex, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        PlyTarget plyTarget) throws IOException;
+        int elementIndex, int propertyIndex, PlyTarget plyTarget)
+        throws IOException;
 }

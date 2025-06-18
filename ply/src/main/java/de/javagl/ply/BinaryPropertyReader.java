@@ -45,17 +45,13 @@ interface BinaryPropertyReader
      * 
      * @param inputStream The input stream
      * @param elementTypeIndex The element type index
-     * @param elementDescriptor The {@link ElementDescriptor}
      * @param elementIndex The element index
-     * @param propertyDescriptor The {@link PropertyDescriptor}
      * @param propertyIndex The property index
      * @param sizeReader A function for reading the size of lists
      * @param plyTarget The {@link PlyTarget}
      * @throws IOException if an IO error occurs
      */
-    void read(InputStream inputStream, int elementTypeIndex,
-        ElementDescriptor elementDescriptor, int elementIndex,
-        PropertyDescriptor propertyDescriptor, int propertyIndex,
-        Function<InputStream, Number> sizeReader, PlyTarget plyTarget)
-        throws IOException;
+    void read(InputStream inputStream, int elementTypeIndex, int elementIndex,
+        int propertyIndex, Function<InputStream, Number> sizeReader,
+        PlyTarget plyTarget) throws IOException;
 }
