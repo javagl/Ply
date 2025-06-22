@@ -48,7 +48,12 @@ class IO
         int bytesRead = 0;
         while (bytesRead < bytesToRead)
         {
-            bytesRead += inputStream.read(target, bytesRead, bytesToRead);
+            int read = inputStream.read(target, bytesRead, bytesToRead);
+            if (read == -1)
+            {
+                throw new IOException("Unexpected end of input");
+            }
+            bytesRead += read;
         }
     }
 
