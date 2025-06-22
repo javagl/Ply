@@ -83,7 +83,7 @@ class BinaryPlyWriter implements PlyWriter
         throws IOException
     {
         String format =
-            littleEndian ? "binary_little_endian " : "binary_big_endian ";
+            littleEndian ? "binary_little_endian" : "binary_big_endian";
         PlyWriters.writeHeader(plySource, format, outputStream);
         writeContent(plySource, outputStream);
     }
