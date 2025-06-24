@@ -21,7 +21,7 @@ import de.javagl.ply.PlySource;
 /**
  * An example showing how to use the Ply library to load a PLY file
  */
-public class Ply_01_Read
+public class ReadExample
 {
     /**
      * The entry point

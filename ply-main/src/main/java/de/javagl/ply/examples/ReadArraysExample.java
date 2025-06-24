@@ -21,7 +21,7 @@ import de.javagl.ply.PlyReaders;
  * read data to a custom target that collects the data of specific properties in
  * arrays.
  */
-public class Ply_03_ReadArrays
+public class ReadArraysExample
 {
     /**
      * The entry point

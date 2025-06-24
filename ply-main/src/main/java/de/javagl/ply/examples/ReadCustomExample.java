@@ -23,7 +23,7 @@ import de.javagl.ply.PropertyDescriptor;
  * An example showing how to use the Ply library to load a PLY file and pass the
  * read data to a custom target.
  */
-public class Ply_02_ReadCustom
+public class ReadCustomExample
 {
     /**
      * The entry point

@@ -26,7 +26,7 @@ import de.javagl.ply.PlyWriters;
  * An example showing how to use the Ply library create generic PLY data and
  * write it to a file or stream.
  */
-public class Ply_05_Write
+public class WriteExample
 {
     /**
      * The entry point

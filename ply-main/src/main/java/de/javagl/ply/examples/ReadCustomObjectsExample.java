@@ -14,14 +14,19 @@ import java.util.List;
 
 import de.javagl.ply.AbstractPlyTarget;
 import de.javagl.ply.Descriptor;
+import de.javagl.ply.ObjectPlyTarget;
 import de.javagl.ply.PlyReader;
 import de.javagl.ply.PlyReaders;
+import de.javagl.ply.examples.data.ExampleVertex;
 
 /**
  * An example showing how to use the Ply library to load a PLY file and pass the
- * read data to a custom target that creates custom objects for the elements
+ * read data to a custom target that creates custom objects for the elements.
+ * 
+ * Note that there exists a convenience class {@link ObjectPlyTarget} that
+ * offers a similar functionality as this example.
  */
-public class Ply_04_ReadCustomObjects
+public class ReadCustomObjectsExample
 {
     /**
      * The entry point
@@ -42,20 +47,6 @@ public class Ply_04_ReadCustomObjects
         Descriptor descriptor = p.readDescriptor(inputStream);
         System.out.println("Descriptor: " + descriptor);
 
-        // A dummy class representing a vertex
-        class Vertex
-        {
-            float x;
-            float y;
-            float z;
-
-            @Override
-            public String toString()
-            {
-                return "(" + x + ", " + y + ", " + z + ")";
-            }
-        }
-
         // Based on the descriptor, a custom PLY target can
         // be created. This is an example PLY target that
         // - Creates a new vertex when a new vertex element starts
@@ -64,10 +55,10 @@ public class Ply_04_ReadCustomObjects
         class CustomPlyTarget extends AbstractPlyTarget
         {
             // The list that stores the resulting vertices
-            List<Vertex> vertices = new ArrayList<Vertex>();
+            List<ExampleVertex> vertices = new ArrayList<ExampleVertex>();
 
             // The current vertex that is created
-            Vertex currentVertex;
+            ExampleVertex currentVertex;
 
             @Override
             public void startElement(int elementTypeIndex, int elementIndex)
@@ -78,7 +69,7 @@ public class Ply_04_ReadCustomObjects
                 {
                     // Prepare a new vertex to be filled with
                     // the subsequent property values
-                    currentVertex = new Vertex();
+                    currentVertex = new ExampleVertex();
                 }
             }
 
@@ -93,15 +84,15 @@ public class Ply_04_ReadCustomObjects
                     // the property index (0="x", 1="y", 2="z")
                     if (propertyIndex == 0)
                     {
-                        currentVertex.x = value;
+                        currentVertex.setX(value);
                     }
                     else if (propertyIndex == 1)
                     {
-                        currentVertex.y = value;
+                        currentVertex.setY(value);
                     }
                     else if (propertyIndex == 2)
                     {
-                        currentVertex.z = value;
+                        currentVertex.setZ(value);
                     }
                 }
             }
