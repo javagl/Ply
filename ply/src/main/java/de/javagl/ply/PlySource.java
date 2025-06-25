@@ -50,4 +50,16 @@ public interface PlySource
      * @return The {@link Element} list
      */
     List<Element> getElementList(String elementName);
+
+    /**
+     * Returns an unmodifiable list of {@link Element} objects for the specified
+     * element type index
+     * 
+     * @param elementTypeIndex The element type index
+     * @return The {@link Element} list
+     * @throws IndexOutOfBoundsException If the given index is negative or not
+     *         smaller than the number of element types
+     */
+    List<Element> getElementList(int elementTypeIndex);
+
 }

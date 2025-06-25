@@ -43,12 +43,33 @@ public interface MutablePlySource extends PlySource
     void addElement(String elementName, Element element);
 
     /**
+     * Add the given {@link Element} to the PLY data
+     * 
+     * @param elementTypeIndex The element type index
+     * @param element The {@link Element}
+     * @throws IndexOutOfBoundsException If the given index is negative or not
+     *         smaller than the number of element types
+     */
+    void addElement(int elementTypeIndex, Element element);
+
+    /**
      * Add the given {@link Element} objects to the PLY data
      * 
      * @param elementName The element name
      * @param elements The {@link Element} objects
      */
     void addElements(String elementName,
+        Collection<? extends Element> elements);
+
+    /**
+     * Add the given {@link Element} objects to the PLY data
+     * 
+     * @param elementTypeIndex The element type index
+     * @param elements The {@link Element} objects
+     * @throws IndexOutOfBoundsException If the given index is negative or not
+     *         smaller than the number of element types
+     */
+    void addElements(int elementTypeIndex,
         Collection<? extends Element> elements);
 
 }

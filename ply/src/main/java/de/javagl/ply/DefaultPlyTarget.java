@@ -36,9 +36,9 @@ import java.util.Map;
 class DefaultPlyTarget implements PlyTarget
 {
     /**
-     * The current {@link DefaultPly}
+     * The current {@link DefaultPlySource}
      */
-    private DefaultPly currentPly;
+    private DefaultPlySource currentPly;
 
     /**
      * The current {@link DefaultIndexedElement}
@@ -64,7 +64,7 @@ class DefaultPlyTarget implements PlyTarget
     @Override
     public void setDescriptor(Descriptor descriptor)
     {
-        this.currentPly = new DefaultPly(descriptor);
+        this.currentPly = new DefaultPlySource(descriptor);
 
         this.propertyIndexMaps = new ArrayList<Map<String, Integer>>();
 
@@ -167,9 +167,7 @@ class DefaultPlyTarget implements PlyTarget
     @Override
     public void endElement(int elementTypeIndex, int elementIndex)
     {
-        Descriptor descriptor = currentPly.getDescriptor();
-        String elementName = descriptor.getElementName(elementTypeIndex);
-        currentPly.addElement(elementName, currentElement);
+        currentPly.addElement(elementTypeIndex, currentElement);
         currentElement = null;
     }
 

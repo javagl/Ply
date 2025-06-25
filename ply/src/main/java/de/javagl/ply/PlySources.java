@@ -39,7 +39,7 @@ public class PlySources
      */
     public static MutablePlySource create(Descriptor descriptor)
     {
-        return new DefaultPly(descriptor);
+        return new DefaultPlySource(descriptor);
     }
 
     /**

@@ -423,4 +423,11 @@ public final class ObjectPlySource implements PlySource
         return handle.createList();
     }
 
+    @Override
+    public List<Element> getElementList(int elementTypeIndex)
+    {
+        String elementName = descriptor.getElementName(elementTypeIndex);
+        return getElementList(elementName);
+    }
+
 }

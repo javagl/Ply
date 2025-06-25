@@ -26,6 +26,10 @@
  */
 package de.javagl.ply;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Methods to create {@link Descriptor} instances
  */
@@ -39,6 +43,28 @@ public class Descriptors
     public static MutableDescriptor create()
     {
         return new DefaultDescriptor();
+    }
+
+    /**
+     * Compute a mapping from element names to the indices that they have in the
+     * given {@link Descriptor}
+     * 
+     * @param descriptor The {@link Descriptor}
+     * @return The indices
+     */
+    static Map<String, Integer> computeElementTypeIndices(Descriptor descriptor)
+    {
+        Map<String, Integer> elementTypeIndices =
+            new LinkedHashMap<String, Integer>();
+        List<ElementDescriptor> elementDescriptors =
+            descriptor.getElementDescriptors();
+        for (int e = 0; e < elementDescriptors.size(); e++)
+        {
+            ElementDescriptor elementDescriptor = elementDescriptors.get(e);
+            String name = elementDescriptor.getName();
+            elementTypeIndices.put(name, e);
+        }
+        return elementTypeIndices;
     }
 
     /**

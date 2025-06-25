@@ -30,7 +30,6 @@ package de.javagl.ply;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +37,7 @@ import java.util.Objects;
 /**
  * Default implementation of a {@link MutablePlySource}
  */
-class DefaultPly implements MutablePlySource
+class DefaultPlySource implements MutablePlySource
 {
     /**
      * The {@link Descriptor}
@@ -46,51 +45,76 @@ class DefaultPly implements MutablePlySource
     private Descriptor descriptor;
 
     /**
-     * The mapping from element names to lists of elements for this name
+     * The list of lists of elements for this name
      */
-    private final Map<String, List<Element>> elementLists;
+    private final List<List<Element>> elementLists;
+
+    /**
+     * The mapping from names to element type indices
+     */
+    private final Map<String, Integer> elementTypeIndices;
 
     /**
      * Default constructor
      * 
      * @param descriptor The {@link Descriptor}
      */
-    DefaultPly(Descriptor descriptor)
+    DefaultPlySource(Descriptor descriptor)
     {
         this.descriptor = Objects.requireNonNull(descriptor,
             "The descriptor may not be null");
-        this.elementLists = new LinkedHashMap<String, List<Element>>();
+        this.elementTypeIndices =
+            Descriptors.computeElementTypeIndices(descriptor);
+
+        this.elementLists = new ArrayList<List<Element>>();
+        int n = descriptor.getElementDescriptors().size();
+        for (int i = 0; i < n; i++)
+        {
+            this.elementLists.add(null);
+        }
+    }
+
+    @Override
+    public void addElement(int elementTypeIndex, Element element)
+    {
+        Objects.requireNonNull(element, "The element may not be null");
+        List<Element> elementList = elementLists.get(elementTypeIndex);
+        if (elementList == null)
+        {
+            elementList = new ArrayList<Element>();
+            elementLists.set(elementTypeIndex, elementList);
+        }
+        elementList.add(element);
     }
 
     @Override
     public void addElement(String elementName, Element element)
     {
-        Objects.requireNonNull(elementName, "The elementName may not be null");
-        Objects.requireNonNull(element, "The element may not be null");
+        int elementTypeIndex = elementTypeIndices.get(elementName);
+        addElement(elementTypeIndex, element);
+    }
 
-        List<Element> elementList = elementLists.get(elementName);
+    @Override
+    public void addElements(int elementTypeIndex,
+        Collection<? extends Element> elements)
+    {
+        Objects.requireNonNull(elements, "The elements may not be null");
+
+        List<Element> elementList = elementLists.get(elementTypeIndex);
         if (elementList == null)
         {
             elementList = new ArrayList<Element>();
-            elementLists.put(elementName, elementList);
+            elementLists.set(elementTypeIndex, elementList);
         }
-        elementList.add(element);
+        elementList.addAll(elements);
     }
 
     @Override
     public void addElements(String elementName,
         Collection<? extends Element> elements)
     {
-        Objects.requireNonNull(elementName, "The elementName may not be null");
-        Objects.requireNonNull(elements, "The elements may not be null");
-
-        List<Element> elementList = elementLists.get(elementName);
-        if (elementList == null)
-        {
-            elementList = new ArrayList<Element>();
-            elementLists.put(elementName, elementList);
-        }
-        elementList.addAll(elements);
+        int elementTypeIndex = elementTypeIndices.get(elementName);
+        addElements(elementTypeIndex, elements);
     }
 
     @Override
@@ -102,7 +126,14 @@ class DefaultPly implements MutablePlySource
     @Override
     public List<Element> getElementList(String elementName)
     {
-        List<Element> list = elementLists.get(elementName);
+        int elementTypeIndex = elementTypeIndices.get(elementName);
+        return getElementList(elementTypeIndex);
+    }
+
+    @Override
+    public List<Element> getElementList(int elementTypeIndex)
+    {
+        List<Element> list = elementLists.get(elementTypeIndex);
         if (list == null)
         {
             return null;
