@@ -49,7 +49,7 @@ public class ReadExample
         List<Element> vertices = plySource.getElementList("vertex");
         Element vertex = vertices.get(1);
         float z = vertex.getFloatProperty("z");
-        System.out.println("Value: " + z);
+        System.out.println("Value of z-coordinate of vertex 1: " + z);
     }
 
     /**

@@ -151,11 +151,29 @@ class DefaultDescriptor implements MutableDescriptor
         return null;
     }
 
+    /**
+     * Obtain the {@link ElementDescriptor} for the given name, creating it if
+     * it does not exist yet.
+     * 
+     * @param elementName The element name
+     * @return The {@link ElementDescriptor}
+     */
+    private DefaultElementDescriptor obtain(String elementName)
+    {
+        DefaultElementDescriptor elementDescriptor = find(elementName);
+        if (elementDescriptor == null)
+        {
+            elementDescriptor = new DefaultElementDescriptor(elementName);
+            elementDescriptors.add(elementDescriptor);
+        }
+        return elementDescriptor;
+    }
+
     @Override
     public void addProperty(String elementName, String propertyName,
         PlyType propertyType)
     {
-        DefaultElementDescriptor elementDescriptor = find(elementName);
+        DefaultElementDescriptor elementDescriptor = obtain(elementName);
         elementDescriptor.addProperty(propertyName, propertyType);
     }
 
@@ -163,7 +181,7 @@ class DefaultDescriptor implements MutableDescriptor
     public void addListProperty(String elementName, String propertyName,
         PlyType propertySizeType, PlyType propertyType)
     {
-        DefaultElementDescriptor elementDescriptor = find(elementName);
+        DefaultElementDescriptor elementDescriptor = obtain(elementName);
         elementDescriptor.addListProperty(propertyName, propertySizeType,
             propertyType);
     }
