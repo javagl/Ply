@@ -35,7 +35,7 @@ import java.util.Objects;
 /**
  * Default implementation of an {@link ElementDescriptor}
  */
-class DefaultElementDescriptor implements MutableElementDescriptor
+class DefaultElementDescriptor implements ElementDescriptor
 {
     /**
      * THe name of the element
@@ -79,14 +79,29 @@ class DefaultElementDescriptor implements MutableElementDescriptor
         propertyDescriptors.add(propertyDescriptor);
     }
 
-    @Override
-    public void addProperty(String name, PlyType type)
+    /**
+     * Add the specified property
+     * 
+     * @param name The name
+     * @param type The type
+     * @throws IllegalArgumentException If a property with the given name was
+     *         already added
+     */
+    void addProperty(String name, PlyType type)
     {
         addPropertyDescriptor(new DefaultPropertyDescriptor(name, type, null));
     }
 
-    @Override
-    public void addListProperty(String name, PlyType sizeType, PlyType type)
+    /**
+     * Add the specified property
+     * 
+     * @param name The name
+     * @param sizeType The size type
+     * @param type The type
+     * @throws IllegalArgumentException If a property with the given name was
+     *         already added
+     */
+    void addListProperty(String name, PlyType sizeType, PlyType type)
     {
         addPropertyDescriptor(
             new DefaultPropertyDescriptor(name, type, sizeType));
@@ -96,6 +111,24 @@ class DefaultElementDescriptor implements MutableElementDescriptor
     public String getName()
     {
         return name;
+    }
+
+    @Override
+    public String getPropertyName(int propertyIndex)
+    {
+        return propertyDescriptors.get(propertyIndex).getName();
+    }
+
+    @Override
+    public PlyType getPropertyType(int propertyIndex)
+    {
+        return propertyDescriptors.get(propertyIndex).getType();
+    }
+
+    @Override
+    public PlyType getPropertySizeType(int propertyIndex)
+    {
+        return propertyDescriptors.get(propertyIndex).getSizeType();
     }
 
     @Override

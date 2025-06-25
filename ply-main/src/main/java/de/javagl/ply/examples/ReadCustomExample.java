@@ -9,15 +9,12 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import de.javagl.ply.AbstractPlyTarget;
 import de.javagl.ply.Descriptor;
-import de.javagl.ply.ElementDescriptor;
 import de.javagl.ply.PlyReader;
 import de.javagl.ply.PlyReaders;
 import de.javagl.ply.PlyTarget;
-import de.javagl.ply.PropertyDescriptor;
 
 /**
  * An example showing how to use the Ply library to load a PLY file and pass the
@@ -54,18 +51,14 @@ public class ReadCustomExample
             public void handleFloatProperty(int elementTypeIndex,
                 int elementIndex, int propertyIndex, float value)
             {
-                List<ElementDescriptor> elementDescriptors =
-                    descriptor.getElementDescriptors();
-                ElementDescriptor elementDescriptor =
-                    elementDescriptors.get(elementTypeIndex);
-                List<PropertyDescriptor> propertyDescriptors =
-                    elementDescriptor.getPropertyDescriptors();
-                PropertyDescriptor propertyDescriptor =
-                    propertyDescriptors.get(propertyIndex);
+                String elementName =
+                    descriptor.getElementName(elementTypeIndex);
+                String propertyName =
+                    descriptor.getPropertyName(elementTypeIndex, propertyIndex);
                 System.out.println("Float property " + propertyIndex
-                    + " with name '" + propertyDescriptor.getName()
-                    + "' for element " + elementIndex + " of element type '"
-                    + elementDescriptor.getName() + "' has value " + value);
+                    + " with name '" + propertyName + "' for element "
+                    + elementIndex + " of element type '" + elementName
+                    + "' has value " + value);
             }
         };
 

@@ -87,8 +87,8 @@ class DefaultPlyReader implements PlyReader
 
         LineReader headerLineReader = new LineReader(inputStream);
 
-        MutableDescriptor descriptor = Descriptors.create();
-        MutableElementDescriptor currentElementDescriptor = null;
+        DefaultDescriptor descriptor = new DefaultDescriptor();
+        DefaultElementDescriptor currentElementDescriptor = null;
         List<Integer> elementCounts = new ArrayList<Integer>();
 
         // Read the header, line by line
@@ -147,7 +147,7 @@ class DefaultPlyReader implements PlyReader
                 }
                 elementCounts.add(elementCount);
                 currentElementDescriptor =
-                    ElementDescriptors.create(elementName);
+                    new DefaultElementDescriptor(elementName);
             }
             else if (line.startsWith("property"))
             {
@@ -228,7 +228,7 @@ class DefaultPlyReader implements PlyReader
      * @throws IOException If an IO error occurs
      */
     private void handleProperty(String line,
-        MutableElementDescriptor currentElementDescriptor) throws IOException
+        DefaultElementDescriptor currentElementDescriptor) throws IOException
     {
         String[] tokens = line.trim().split("\\s+");
         if (tokens.length < 3)

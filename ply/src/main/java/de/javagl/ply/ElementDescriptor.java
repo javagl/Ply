@@ -42,6 +42,37 @@ public interface ElementDescriptor
     String getName();
 
     /**
+     * Returns the name of the specified property
+     * 
+     * @param propertyIndex The property index
+     * @return The name
+     * @throws IndexOutOfBoundsException If the the property index is negative
+     *         or not smaller than the number of properties
+     */
+    String getPropertyName(int propertyIndex);
+
+    /**
+     * Returns the type of the specified property
+     * 
+     * @param propertyIndex The property index
+     * @return The type
+     * @throws IndexOutOfBoundsException If the the property index is negative
+     *         or not smaller than the number of properties
+     */
+    PlyType getPropertyType(int propertyIndex);
+
+    /**
+     * Returns the size type of the specified property, or <code>null</code> if
+     * the specified property is not a list property.
+     * 
+     * @param propertyIndex The property index
+     * @return The name
+     * @throws IndexOutOfBoundsException If the the property index is negative
+     *         or not smaller than the number of properties
+     */
+    PlyType getPropertySizeType(int propertyIndex);
+
+    /**
      * Returns an unmodifiable list containing one {@link PropertyDescriptor}
      * for each property of this element.
      * 

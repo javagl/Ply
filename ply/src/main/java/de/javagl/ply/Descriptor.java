@@ -30,7 +30,10 @@ package de.javagl.ply;
 import java.util.List;
 
 /**
- * A description of a PLY file
+ * A description of the structure of PLY data.
+ * 
+ * This resembles the information that is given in the header of a PLY file,
+ * except for the numbers of elements.
  */
 public interface Descriptor
 {
@@ -40,6 +43,53 @@ public interface Descriptor
      * @return The comments
      */
     List<String> getComments();
+
+    /**
+     * Returns the name of the specified element type
+     * 
+     * @param elementTypeIndex The element type index
+     * @return The name
+     * @throws IndexOutOfBoundsException If the index is negative or not smaller
+     *         than the number of element types
+     */
+    String getElementName(int elementTypeIndex);
+
+    /**
+     * Returns the name of the specified property
+     * 
+     * @param elementTypeIndex The element type index
+     * @param propertyIndex The property index
+     * @return The name
+     * @throws IndexOutOfBoundsException If the element type index is negative
+     *         or not smaller than the number of element types, or the property
+     *         index is negative or not smaller than the number of properties
+     */
+    String getPropertyName(int elementTypeIndex, int propertyIndex);
+
+    /**
+     * Returns the type of the specified property
+     * 
+     * @param elementTypeIndex The element type index
+     * @param propertyIndex The property index
+     * @return The type
+     * @throws IndexOutOfBoundsException If the element type index is negative
+     *         or not smaller than the number of element types, or the property
+     *         index is negative or not smaller than the number of properties
+     */
+    PlyType getPropertyType(int elementTypeIndex, int propertyIndex);
+
+    /**
+     * Returns the size type of the specified property, or <code>null</code> if
+     * the specified property is not a list property.
+     * 
+     * @param elementTypeIndex The element type index
+     * @param propertyIndex The property index
+     * @return The name
+     * @throws IndexOutOfBoundsException If the element type index is negative
+     *         or not smaller than the number of element types, or the property
+     *         index is negative or not smaller than the number of properties
+     */
+    PlyType getPropertySizeType(int elementTypeIndex, int propertyIndex);
 
     /**
      * Returns an unmodifiable list containing the {@link ElementDescriptor}

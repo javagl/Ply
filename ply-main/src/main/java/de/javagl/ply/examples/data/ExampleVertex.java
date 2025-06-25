@@ -18,17 +18,18 @@ public class ExampleVertex
 
     public ExampleVertex()
     {
-        
+
     }
-    
-    public ExampleVertex(float x, float y, float z, int red, int green, int blue)
+
+    public ExampleVertex(float x, float y, float z, int red, int green,
+        int blue)
     {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.red = (byte)red;
-        this.green = (byte)green;
-        this.blue = (byte)blue;
+        this.red = (byte) red;
+        this.green = (byte) green;
+        this.blue = (byte) blue;
     }
 
     public void setX(float x)
@@ -94,7 +95,8 @@ public class ExampleVertex
     @Override
     public String toString()
     {
-        return "(" + x + ", " + y + ", " + z + ", " + Byte.toUnsignedInt(red) + ", " + Byte.toUnsignedInt(green) + ", " + Byte.toUnsignedInt(blue)
+        return "(" + x + ", " + y + ", " + z + ", " + Byte.toUnsignedInt(red)
+            + ", " + Byte.toUnsignedInt(green) + ", " + Byte.toUnsignedInt(blue)
             + ")";
     }
 

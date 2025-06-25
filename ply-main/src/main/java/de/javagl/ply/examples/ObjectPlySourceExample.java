@@ -11,22 +11,19 @@ import java.util.List;
 
 import de.javagl.ply.Descriptor;
 import de.javagl.ply.Descriptors;
-import de.javagl.ply.ElementDescriptors;
 import de.javagl.ply.MutableDescriptor;
-import de.javagl.ply.MutableElementDescriptor;
 import de.javagl.ply.ObjectPlySource;
+import de.javagl.ply.ObjectPlySource.Handle;
 import de.javagl.ply.PlyType;
 import de.javagl.ply.PlyWriter;
 import de.javagl.ply.PlyWriters;
-import de.javagl.ply.ObjectPlySource.Handle;
 import de.javagl.ply.examples.data.ExampleData;
 import de.javagl.ply.examples.data.ExampleEdge;
 import de.javagl.ply.examples.data.ExampleFace;
 import de.javagl.ply.examples.data.ExampleVertex;
 
 /**
- * An example showing how to write lists of existing objects into
- * a PLY file
+ * An example showing how to write lists of existing objects into a PLY file
  */
 public class ObjectPlySourceExample
 {
@@ -52,7 +49,7 @@ public class ObjectPlySourceExample
         // Configure the source to take 'vertex' objects from
         // the list of vertices
         Handle<ExampleVertex> v = plySource.register("vertex", vertices);
-        
+
         // Configure the source to fetch the properties from the
         // vertices in the list, using getters
         v.withFloat("x", ExampleVertex::getX);
@@ -90,27 +87,21 @@ public class ObjectPlySourceExample
     private static Descriptor createDescriptor()
     {
         MutableDescriptor d = Descriptors.create();
-        
-        MutableElementDescriptor ev = ElementDescriptors.create("vertex");
-        ev.addProperty("x", PlyType.FLOAT);
-        ev.addProperty("y", PlyType.FLOAT);
-        ev.addProperty("z", PlyType.FLOAT);
-        ev.addProperty("red", PlyType.UCHAR);
-        ev.addProperty("green", PlyType.UCHAR);
-        ev.addProperty("blue", PlyType.UCHAR);
-        d.addElementDescriptor(ev);
 
-        MutableElementDescriptor ef = ElementDescriptors.create("face");
-        ef.addListProperty("vertex_index", PlyType.UCHAR, PlyType.INT);
-        d.addElementDescriptor(ef);
+        d.addProperty("vertex", "x", PlyType.FLOAT);
+        d.addProperty("vertex", "y", PlyType.FLOAT);
+        d.addProperty("vertex", "z", PlyType.FLOAT);
+        d.addProperty("vertex", "red", PlyType.UCHAR);
+        d.addProperty("vertex", "green", PlyType.UCHAR);
+        d.addProperty("vertex", "blue", PlyType.UCHAR);
 
-        MutableElementDescriptor ee = ElementDescriptors.create("edge");
-        ee.addProperty("vertex1", PlyType.INT);
-        ee.addProperty("vertex2", PlyType.INT);
-        ee.addProperty("red", PlyType.UCHAR);
-        ee.addProperty("green", PlyType.UCHAR);
-        ee.addProperty("blue", PlyType.UCHAR);
-        d.addElementDescriptor(ee);
+        d.addListProperty("face", "vertex_index", PlyType.UCHAR, PlyType.INT);
+
+        d.addProperty("edge", "vertex1", PlyType.INT);
+        d.addProperty("edge", "vertex2", PlyType.INT);
+        d.addProperty("edge", "red", PlyType.UCHAR);
+        d.addProperty("edge", "green", PlyType.UCHAR);
+        d.addProperty("edge", "blue", PlyType.UCHAR);
 
         return d;
     }

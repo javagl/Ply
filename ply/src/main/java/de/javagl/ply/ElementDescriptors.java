@@ -31,21 +31,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Methods to create {@link ElementDescriptor} instances
+ * Methods related to {@link ElementDescriptor} instances
  */
-public class ElementDescriptors
+class ElementDescriptors
 {
-    /**
-     * Creates a new {@link MutableElementDescriptor}
-     * 
-     * @param name The element name
-     * @return The {@link MutableElementDescriptor}
-     */
-    public static MutableElementDescriptor create(String name)
-    {
-        return new DefaultElementDescriptor(name);
-    }
-
     /**
      * Compute a mapping from property names to the indices that the properties
      * have in the given {@link ElementDescriptor}

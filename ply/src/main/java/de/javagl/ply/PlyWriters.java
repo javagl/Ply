@@ -85,8 +85,8 @@ public class PlyWriters
         for (int t = 0; t < elementDescriptors.size(); t++)
         {
             ElementDescriptor elementDescriptor = elementDescriptors.get(t);
-            String name = elementDescriptor.getName();
-            List<Element> list = plySource.getElementList(name);
+            String elementName = elementDescriptor.getName();
+            List<Element> list = plySource.getElementList(elementName);
             if (list == null)
             {
                 counts.add(0);

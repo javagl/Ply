@@ -46,7 +46,7 @@ class DefaultDescriptor implements MutableDescriptor
      * The {@link ElementDescriptor} objects, one for each element defined in
      * the PLY file
      */
-    private final List<ElementDescriptor> elementDescriptors;
+    private final List<DefaultElementDescriptor> elementDescriptors;
 
     /**
      * Default constructor
@@ -54,7 +54,7 @@ class DefaultDescriptor implements MutableDescriptor
     DefaultDescriptor()
     {
         this.comments = new ArrayList<String>();
-        this.elementDescriptors = new ArrayList<ElementDescriptor>();
+        this.elementDescriptors = new ArrayList<DefaultElementDescriptor>();
     }
 
     @Override
@@ -70,19 +70,52 @@ class DefaultDescriptor implements MutableDescriptor
         return Collections.unmodifiableList(comments);
     }
 
-    @Override
-    public void addElementDescriptor(ElementDescriptor elementDescriptor)
+    /**
+     * Add the given {@link ElementDescriptor}
+     * 
+     * @param elementDescriptor The {@link ElementDescriptor}
+     * @throws IllegalArgumentException If a descriptor for the elements with
+     *         the same name as the given one was already added
+     */
+    void addElementDescriptor(DefaultElementDescriptor elementDescriptor)
     {
-        for (int i = 0; i < elementDescriptors.size(); i++)
+        ElementDescriptor existing = find(elementDescriptor.getName());
+        if (existing != null)
         {
-            ElementDescriptor existing = elementDescriptors.get(i);
-            if (existing.getName().equals(elementDescriptor.getName()))
-            {
-                throw new IllegalArgumentException("ELement with name '"
-                    + elementDescriptor.getName() + "' already exists");
-            }
+            throw new IllegalArgumentException("Element with name '"
+                + elementDescriptor.getName() + "' already exists");
         }
         elementDescriptors.add(elementDescriptor);
+    }
+
+    @Override
+    public String getElementName(int elementTypeIndex)
+    {
+        return elementDescriptors.get(elementTypeIndex).getName();
+    }
+
+    @Override
+    public String getPropertyName(int elementTypeIndex, int propertyIndex)
+    {
+        ElementDescriptor elementDescriptor =
+            elementDescriptors.get(elementTypeIndex);
+        return elementDescriptor.getPropertyName(propertyIndex);
+    }
+
+    @Override
+    public PlyType getPropertyType(int elementTypeIndex, int propertyIndex)
+    {
+        ElementDescriptor elementDescriptor =
+            elementDescriptors.get(elementTypeIndex);
+        return elementDescriptor.getPropertyType(propertyIndex);
+    }
+
+    @Override
+    public PlyType getPropertySizeType(int elementTypeIndex, int propertyIndex)
+    {
+        ElementDescriptor elementDescriptor =
+            elementDescriptors.get(elementTypeIndex);
+        return elementDescriptor.getPropertySizeType(propertyIndex);
     }
 
     @Override
@@ -95,6 +128,44 @@ class DefaultDescriptor implements MutableDescriptor
     public String toString()
     {
         return "Descriptor[" + elementDescriptors + "]";
+    }
+
+    /**
+     * Find the {@link ElementDescriptor} for the given name, and return
+     * <code>null</code> if it does not exist yet.
+     * 
+     * @param elementName The element name
+     * @return The {@link ElementDescriptor}
+     */
+    private DefaultElementDescriptor find(String elementName)
+    {
+        for (int i = 0; i < elementDescriptors.size(); i++)
+        {
+            DefaultElementDescriptor elementDescriptor =
+                elementDescriptors.get(i);
+            if (elementDescriptor.getName().equals(elementName))
+            {
+                return elementDescriptor;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void addProperty(String elementName, String propertyName,
+        PlyType propertyType)
+    {
+        DefaultElementDescriptor elementDescriptor = find(elementName);
+        elementDescriptor.addProperty(propertyName, propertyType);
+    }
+
+    @Override
+    public void addListProperty(String elementName, String propertyName,
+        PlyType propertySizeType, PlyType propertyType)
+    {
+        DefaultElementDescriptor elementDescriptor = find(elementName);
+        elementDescriptor.addListProperty(propertyName, propertySizeType,
+            propertyType);
     }
 
 }

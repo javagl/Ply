@@ -11,11 +11,9 @@ import java.util.Arrays;
 
 import de.javagl.ply.Descriptor;
 import de.javagl.ply.Descriptors;
-import de.javagl.ply.ElementDescriptors;
 import de.javagl.ply.Elements;
 import de.javagl.ply.MutableDescriptor;
 import de.javagl.ply.MutableElement;
-import de.javagl.ply.MutableElementDescriptor;
 import de.javagl.ply.MutablePlySource;
 import de.javagl.ply.PlySources;
 import de.javagl.ply.PlyType;
@@ -98,19 +96,13 @@ public class WriteExample
         // Create the descriptor
         MutableDescriptor d = Descriptors.create();
 
-        // Create a descriptor for the first element,
-        // and add it to the descriptor
-        MutableElementDescriptor ev = ElementDescriptors.create("vertex");
-        ev.addProperty("x", PlyType.FLOAT);
-        ev.addProperty("y", PlyType.FLOAT);
-        ev.addProperty("z", PlyType.FLOAT);
-        d.addElementDescriptor(ev);
+        // Define the properties of 'vertex' elements
+        d.addProperty("vertex", "x", PlyType.FLOAT);
+        d.addProperty("vertex", "y", PlyType.FLOAT);
+        d.addProperty("vertex", "z", PlyType.FLOAT);
 
-        // Create a descriptor for the second element,
-        // and add it to the descriptor
-        MutableElementDescriptor ef = ElementDescriptors.create("face");
-        ef.addListProperty("vertex_index", PlyType.UCHAR, PlyType.INT);
-        d.addElementDescriptor(ef);
+        // Define the properties of 'face' elements
+        d.addListProperty("face", "vertex_index", PlyType.UCHAR, PlyType.INT);
 
         return d;
     }

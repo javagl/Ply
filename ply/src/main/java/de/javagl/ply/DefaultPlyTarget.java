@@ -168,11 +168,8 @@ class DefaultPlyTarget implements PlyTarget
     public void endElement(int elementTypeIndex, int elementIndex)
     {
         Descriptor descriptor = currentPly.getDescriptor();
-        List<ElementDescriptor> elementDescriptors =
-            descriptor.getElementDescriptors();
-        ElementDescriptor elementDescriptor =
-            elementDescriptors.get(elementTypeIndex);
-        currentPly.addElement(elementDescriptor.getName(), currentElement);
+        String elementName = descriptor.getElementName(elementTypeIndex);
+        currentPly.addElement(elementName, currentElement);
         currentElement = null;
     }
 

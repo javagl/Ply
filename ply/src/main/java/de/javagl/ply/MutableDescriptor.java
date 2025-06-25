@@ -39,12 +39,34 @@ public interface MutableDescriptor extends Descriptor
     void addComment(String comment);
 
     /**
-     * Add the given {@link ElementDescriptor} to this descriptor
+     * Add the specified property to this descriptor.
      * 
-     * @param elementDescriptor The {@link ElementDescriptor} to add
-     * @throws IllegalArgumentException If an element descriptor with the same
-     *         name as the given one already exists
+     * This will automatically add the element descriptor for the specified
+     * element name if necessary.
+     * 
+     * @param elementName The element name
+     * @param propertyName The property name
+     * @param propertyType The property type
+     * @throws IllegalArgumentException If a property with the given name was
+     *         already added for the specified element
      */
-    void addElementDescriptor(ElementDescriptor elementDescriptor);
+    void addProperty(String elementName, String propertyName,
+        PlyType propertyType);
 
+    /**
+     * Add the specified list property to this descriptor.
+     * 
+     * This will automatically add the element descriptor for the specified
+     * element name if necessary.
+     * 
+     * @param elementName The element name
+     * @param propertyName The property name
+     * @param propertySizeType The property size type
+     * @param propertyType The property type
+     * @throws IllegalArgumentException If a property with the given name was
+     *         already added for the specified element, or if the size type is
+     *         not an integer type
+     */
+    void addListProperty(String elementName, String propertyName,
+        PlyType propertySizeType, PlyType propertyType);
 }

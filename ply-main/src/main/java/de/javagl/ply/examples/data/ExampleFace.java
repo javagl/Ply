@@ -12,12 +12,12 @@ import java.util.Arrays;
 public class ExampleFace
 {
     private int indices[];
-    
+
     public ExampleFace()
     {
     }
 
-    public ExampleFace(int ... indices)
+    public ExampleFace(int... indices)
     {
         this.indices = indices;
     }
