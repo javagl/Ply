@@ -9,7 +9,7 @@
 /ply/.settings
 /ply/.classpath
 
-/ply-main/target
-/ply-main/.project
-/ply-main/.settings
-/ply-main/.classpath
+/ply-examples/target
+/ply-examples/.project
+/ply-examples/.settings
+/ply-examples/.classpath
