@@ -1,7 +1,7 @@
 /*
- * www.javagl.de - Data
+ * www.javagl.de - Ply
  *
- * Copyright (c) 2013-2018 Marco Hutter - http://www.javagl.de
+ * Copyright (c) 2011-2025 Marco Hutter - http://www.javagl.de
  */
 package de.javagl.ply;
 
